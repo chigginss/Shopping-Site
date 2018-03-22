@@ -18,8 +18,6 @@ class Melon(object):
                  image_url,
                  color,
                  seedless,
-                 quantity,
-                 total_cost
                  ):
         self.melon_id = melon_id
         self.melon_type = melon_type
@@ -28,8 +26,8 @@ class Melon(object):
         self.image_url = image_url
         self.color = color
         self.seedless = seedless
-        self.quantity = quantity
-        self.total_cost_per_melon = total_cost
+        #self.quantity = quantity
+        #self.total_cost_per_melon = total_cost
         # self.total_cost = ?
 
     def price_str(self):
@@ -42,6 +40,9 @@ class Melon(object):
 
         return "<Melon: {id}, {name}, {price}>".format(
             id=self.melon_id, name=self.common_name, price=self.price_str())
+
+    # def fkdjfdlkjfldss(self, quantity, total_cost):
+    #     self.quantity = quantity
 
 
 def read_melon_types_from_file(filepath):

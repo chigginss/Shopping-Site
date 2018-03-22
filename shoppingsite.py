@@ -55,8 +55,10 @@ def show_melon(melon_id):
 
 
 @app.route("/cart")
-def show_shopping_cart(cart):
+def show_shopping_cart():
     """Display content of shopping cart."""
+
+    # import pdb; pdb.set_trace()
 
     # TODO: Display the contents of the shopping cart.
 
@@ -80,7 +82,7 @@ def show_shopping_cart(cart):
     # melon_objects = []
     # total_cost = 0
     #for melon_id in cart:
-    #compute total cost = amount * cost 
+    #compute total cost = amount * cost
     #add total cost and quantity to Melon class
     #if cart is empty, we want to return "Your cart is empty"
 
@@ -88,16 +90,21 @@ def show_shopping_cart(cart):
     total_cost = 0
 
     if 'melon_cart' in session:
+        cart = session['melon_cart']
         for melon_id in cart:
+            print melon_id
             total_cost_per_melon = 0
-            quantity = cart[melon_id]
+            quantity = int(cart[melon_id])
+            print quantity
             melon = melons.get_by_id(melon_id)
-            total_cost_per_melon = quantity * melon.price
-            melon_objects.append([melon.name, melon.quantity, melon.price])
+            print melon
+            total_cost_per_melon = quantity * int(melon.price)
+            print total_cost_per_melon
+            melon_objects.append(melon)
 
         total_cost += total_cost_per_melon
     else:
-        print "Your cart is empty"
+         print "Your cart is empty"
 
     return render_template("cart.html")
 
@@ -120,10 +127,13 @@ def add_to_cart(melon_id):
     # - increment the count for that melon id by 1
     # - flash a success message
     # - redirect the user to the cart page
+    print "entering the if"
     if 'melon_cart' in session:
+        print "inside the if"
         cart = session['melon_cart']
         cart[melon_id] = cart.get(melon_id, 0) + 1
     else:
+        print "inside the else"
         cart = session['melon_cart'] = {}
 
     flash("Your melon is added to the cart.")
